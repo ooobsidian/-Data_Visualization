@@ -5,6 +5,7 @@ import Heatmap from 'components/heatmap'
 Vue.use(Router);
 
 export default new Router({
+  mode:"history",
   routes: [
     {
       path: '/',
@@ -12,16 +13,8 @@ export default new Router({
       redirect: {name: 'heatmap'}
     },
     {
-      path: '/chart',
+      path: '/chart/heatmap',
       component: Chart,
-      children:[{
-        path:'',
-        redirect:{name:'heatmap'}
-      },{
-        path:'heatmap',
-        name:'heatmap',
-        component:Heatmap
-      }]
     }
   ]
 })
