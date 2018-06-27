@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Chart from 'components/chart'
-
+import Heatmap from 'components/heatmap'
 Vue.use(Router);
 
 export default new Router({
@@ -9,12 +9,19 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: {name: 'chart'}
+      redirect: {name: 'heatmap'}
     },
     {
       path: '/chart',
-      name: 'chart',
-      component: Chart
+      component: Chart,
+      children:[{
+        path:'',
+        redirect:{name:'heatmap'}
+      },{
+        path:'heatmap',
+        name:'heatmap',
+        component:Heatmap
+      }]
     }
   ]
 })

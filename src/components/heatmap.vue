@@ -25,7 +25,7 @@
   import axios from 'axios'
 
   export default {
-    name:'chart',
+    name:'heatmap',
     data() {
       this.chartSettings = {
         key: 'oBvDtR6nzWtVchkY4cLHtnah1VVZQKRK',
