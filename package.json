@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bmap": "^1.0.1",
     "echarts": "^4.1.0",
     "iview": "^2.14.3",

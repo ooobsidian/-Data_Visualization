@@ -9,45 +9,61 @@
           <template slot="desc">这是一个百度地图,将上海房源的信息展示在上面.</template>
         </Alert>
       </div>
-     <div style="margin-top: 20px">
-       <Alert show-icon type="success">
-         它有什么用
-         <Icon type="checkmark-round" slot="icon"></Icon type="home">
-         <template slot="desc">它是一款数据可视化工具,显示了全上海所有二手房的分布信息,颜色越深的地方表示此处分布的房源越密集.此外,数据是每天更新一次.</template>
-       </Alert>
-     </div>
+      <div style="margin-top: 20px">
+        <Alert show-icon type="success">
+          它有什么用
+          <Icon type="checkmark-round" slot="icon"></Icon type="home">
+          <template slot="desc">它是一款数据可视化工具,显示了全上海所有二手房的分布信息,颜色越深的地方表示此处分布的房源越密集.此外,数据每天更新一次.</template>
+        </Alert>
+      </div>
     </div>
+    <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data() {
       this.chartSettings = {
         key: 'oBvDtR6nzWtVchkY4cLHtnah1VVZQKRK',
         bmap: {
-          center: [120.14322240845, 30.236064370321],
+          center: [121.47004, 31.23136],  //人民广场作为中心坐标
           zoom: 14,
-          roam: true
+          roam: true,
+          pointSize: 1,
+          blurSize: 1
         },
         type: 'bmap'
       }
       return {
+        spinShow: false,
         chartData: {
-          columns: ['lat', 'lng'],
-          rows: [
-            {'lat': 120.14322240845, 'lng': 30.236064370321},
-            {'lat': 120.14301682797, 'lng': 30.236035316745},
-            {'lat': 120.14138577045, 'lng': 30.236113748704},
-            {'lat': 120.1400398833, 'lng': 30.235973050702},
-            {'lat': 120.13893453465, 'lng': 30.23517220446},
-            {'lat': 120.1382899739, 'lng': 30.234062922977},
-            {'lat': 120.13265960629, 'lng': 30.231641351722},
-            {'lat': 120.13170681763, 'lng': 30.229925745619},
-            {'lat': 120.13119614803, 'lng': 30.228996846637},
-            {'lat': 120.13023980134, 'lng': 30.228226570416}
-          ]
+          columns: ['lng', 'lat'],
+          rows: []
         }
+      }
+    },
+    mounted() {
+      this.loadData();
+    },
+    methods: {
+      loadData() {
+        this.spinShow = true
+        axios({
+          url: "https://mzz.foryung.com/lianjia-search_mp/coordinate",
+          method: "get"
+        }).then((res) => {
+//          console.log(res.data.data.data)
+          this.spinShow = false
+          this.chartData.rows = res.data.data.data
+          console.log(this.chartData.rows)
+        }).catch((err) => {
+          this.spinShow = false
+          this.$Message.error('加载失败!');
+          console.error(err)
+        })
       }
     }
   }
@@ -58,7 +74,8 @@
     width: 100%;
     height: 100%;
   }
-  .alertBox{
+
+  .alertBox {
     margin-top: 5%;
   }
 </style>
