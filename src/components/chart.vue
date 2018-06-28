@@ -1,23 +1,23 @@
 <template>
   <div id="main">
-    <ve-heatmap :data="chartData" :settings="chartSettings"></ve-heatmap>
-    <div class="alertBox">
-      <div>
-        <Alert show-icon type="warning">
-          这是什么
-          <Icon type="help-circled" slot="icon"></Icon>
-          <template slot="desc">这是一个百度地图,将上海房源的信息展示在上面.</template>
-        </Alert>
-      </div>
-      <div style="margin-top: 20px">
-        <Alert show-icon type="success">
-          它有什么用
-          <Icon type="checkmark-round" slot="icon"></Icon type="home">
-          <template slot="desc">它是一款数据可视化工具,显示了全上海所有二手房的分布信息,颜色越深的地方表示此处分布的房源越密集.此外,数据每天更新一次.</template>
-        </Alert>
-      </div>
-    </div>
-    <Spin size="large" fix v-if="spinShow"></Spin>
+    <ve-heatmap :data="chartData" :settings="chartSettings" class="heatmap"></ve-heatmap>
+    <!--<div class="alertBox">-->
+    <!--<div>-->
+    <!--<Alert show-icon type="warning">-->
+    <!--这是什么-->
+    <!--<Icon type="help-circled" slot="icon"></Icon>-->
+    <!--<template slot="desc">这是一个百度地图,将上海房源的信息展示在上面.</template>-->
+    <!--</Alert>-->
+    <!--</div>-->
+    <!--<div style="margin-top: 20px">-->
+    <!--<Alert show-icon type="success">-->
+    <!--它有什么用-->
+    <!--<Icon type="checkmark-round" slot="icon"></Icon type="home">-->
+    <!--<template slot="desc">它是一款数据可视化工具,显示了全上海所有二手房的分布信息,颜色越深的地方表示此处分布的房源越密集.此外,数据每天更新一次.</template>-->
+    <!--</Alert>-->
+    <!--</div>-->
+    <!--</div>-->
+    <Spin size="large" fix v-if="spinShow" style="z-index: 10000"></Spin>
   </div>
 </template>
 
@@ -25,7 +25,7 @@
   import axios from 'axios'
 
   export default {
-    name:'chart',
+    name: 'chart',
     data() {
       this.chartSettings = {
         key: 'oBvDtR6nzWtVchkY4cLHtnah1VVZQKRK',
@@ -78,5 +78,14 @@
 
   .alertBox {
     margin-top: 5%;
+  }
+
+  .heatmap {
+    position: fixed;
+    height: 100% !important;
+    width: 100%;
+  }
+  .heatmap>div{
+    height:100% !important;
   }
 </style>
