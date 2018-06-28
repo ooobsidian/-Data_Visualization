@@ -81,11 +81,12 @@
   }
 
   .heatmap {
-    position: fixed;
+    /*position: fixed;*/
     height: 100% !important;
     width: 100%;
   }
   .heatmap>div{
     height:100% !important;
   }
+
 </style>
