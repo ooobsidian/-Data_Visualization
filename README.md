@@ -1,6 +1,6 @@
 # data_visualization
 
-> A Vue.js project
+> 上海地区二手房房源热力图
 
 ## Build Setup
 
